@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MasterGomoku</string>
+    <string name="start_gomoku">开始下五子棋</string>
+</resources>
