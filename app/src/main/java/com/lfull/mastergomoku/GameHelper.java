@@ -18,4 +18,5 @@ public class GameHelper {
     public static double distanceCalculate(final float x1, final float y1, final float x2, final float y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
+
 }

@@ -8,23 +8,22 @@ import java.util.Map;
  * Created by LvYingBin on 2017/9/24.
  */
 public class GameManager {
-    private static GameManager mGameManager = new GameManager();
     private GameSettingDO mGameSettingDO;
     //落子过程记录
     private HashMap<ChessPoint, Boolean> mGameHashMap = new HashMap<>();
     private int playCount;
+    //如何保存相邻的链表
 
-    public static GameManager getInstance() {
-        return mGameManager;
-    }
 
-    private GameManager() {
+    public GameManager(GameSettingDO gameSettingDO) {
+        mGameSettingDO = gameSettingDO;
     }
 
     /**
      * 落子后调用此处
      */
     public void go(ChessPoint point) {
+        winJudge(point, isBlackNow());
         mGameHashMap.put(point, isBlackNow());
         playCount++;
     }
@@ -48,27 +47,22 @@ public class GameManager {
     /**
      * 胜负判断
      */
-    public void winJudge() {
+    public void winJudge(ChessPoint point, boolean isBlack) {
         if (mGameHashMap.size() < 9) {
             return;
         }
         for (Map.Entry<ChessPoint, Boolean> entry : mGameHashMap.entrySet()) {
-
+            
         }
 
 
-
-    }
-
-    public GameSettingDO getGameSettingDO() {
-        return mGameSettingDO;
-    }
-
-    public void setGameSettingDO(GameSettingDO gameSettingDO) {
-        mGameSettingDO = gameSettingDO;
     }
 
     public HashMap<ChessPoint, Boolean> getGameHashMap() {
         return mGameHashMap;
+    }
+
+    public GameSettingDO getGameSettingDO() {
+        return mGameSettingDO;
     }
 }

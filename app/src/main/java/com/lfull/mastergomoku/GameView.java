@@ -20,6 +20,7 @@ import java.util.Map;
  */
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private static final String TAG = "GameView";
+    private GameManager mGameManager;
     private int boardSize;
     // 定义SurfaceHolder对象
     private SurfaceHolder mHolder;
@@ -57,7 +58,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void init() {
-        boardSize = GameManager.getInstance().getGameSettingDO().boardSize;
+
         mHolder = this.getHolder();
         mHolder.addCallback(this);
         // 设置透明
@@ -120,7 +121,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void drawChess(@NonNull Canvas canvas) {
-        HashMap<ChessPoint, Boolean> map = GameManager.getInstance().getGameHashMap();
+        HashMap<ChessPoint, Boolean> map = mGameManager.getGameHashMap();
         for (Map.Entry<ChessPoint, Boolean> entry : map.entrySet()) {
             drawChess(canvas, entry.getKey(), entry.getValue());
         }
@@ -159,7 +160,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             case MotionEvent.ACTION_UP:
                 ChessPoint point = addChess(x, y);
                 if (point != null) {
-                    GameManager.getInstance().go(point);
+                    mGameManager.go(point);
                     drawGame();
                 }
                 break;
@@ -200,6 +201,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         } else {
             chessPoint = new ChessPoint(preX + 1, preY + 1);
         }
-        return GameManager.getInstance().isCanAddChess(chessPoint) ? chessPoint : null;
+        return mGameManager.isCanAddChess(chessPoint) ? chessPoint : null;
+    }
+
+    public void setGameManager(GameManager gameManager) {
+        mGameManager = gameManager;
+        boardSize = mGameManager.getGameSettingDO().boardSize;
     }
 }
