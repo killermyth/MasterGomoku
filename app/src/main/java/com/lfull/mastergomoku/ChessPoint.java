@@ -9,16 +9,14 @@ package com.lfull.mastergomoku;
 public class ChessPoint {
     public final int x;
     public final int y;
-    public final boolean isBlack;
 
     public ChessPoint(int x, int y, boolean isBlack) {
         this.x = x;
         this.y = y;
-        this.isBlack = isBlack;
     }
 
-    public final boolean equals(int x, int y, boolean isBlack) {
-        return this.x == x && this.y == y && this.isBlack == isBlack;
+    public final boolean equals(int x, int y) {
+        return this.x == x && this.y == y;
     }
 
     @Override
@@ -30,7 +28,6 @@ public class ChessPoint {
 
         if (x != point.x) return false;
         if (y != point.y) return false;
-        if (isBlack != point.isBlack) return false;
 
         return true;
     }
@@ -38,7 +35,7 @@ public class ChessPoint {
     @Override
     public int hashCode() {
         int result = x;
-        result = 31 * result + y + (isBlack ? 1 : -1);
+        result = 31 * result + y;
         return result;
     }
 }
